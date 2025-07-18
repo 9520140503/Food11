@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {z} from "zod";
 import dotenv from "dotenv";
-import AuthMiddleware from "./middleware/AuthMiddleware.js";
+import AuthMiddleware from "../middleware/AuthMiddleware.js";
 
 dotenv.config();
 

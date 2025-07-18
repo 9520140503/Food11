@@ -9,24 +9,35 @@ const RecipeSchema = mongoose.Schema({
     },
     createdBy: {
         type:mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     title:{
         type:String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
     },
     description:{
         type:String,
-        required: true
+        required: true,
+        trim: true,
     },
     ingredients:{
         type:[String],
-        required:true
+        required:true,
+        validate:{
+            validator: (arr) => arr.length > 0,
+            message: 'Ingredients cannot be empty'
+        }
     },
     instructions:{
         type:[String],
-        required: true
+        required: true,
+        validate: {
+            validator: (arr) => arr.length > 0,
+            message: 'Ingredients cannot be empty'
+        }
     }
 },{timestamps: true});
 
