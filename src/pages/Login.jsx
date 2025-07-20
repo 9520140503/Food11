@@ -2,19 +2,30 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {login} from "../store/authSlice"
 import { useDispatch } from 'react-redux';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error,setError] = useState('')
+  const [loading,setLoading] = useState(false)
+  const [showPassword,setShowPassword] = useState(false)
+
+  const handleToggle = (e) => {
+   e.preventDefault()
+   setShowPassword(prev => !prev)
+  }
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     const data = {
       email,password
     }
-    const response = await fetch('http://localhost:3000/user/login',{
+    try {
+      setLoading(true)
+      const response = await fetch('http://localhost:3000/user/login',{
       method: "POST",
       headers:{
         "Content-Type": "application/json"
@@ -30,8 +41,13 @@ const Login = () => {
       navigate('/');
     }else{
       console.log('Signin Failed:', result);
+      setError(result.message || "Invalid Credentials.");
     }
-    console.log('Login submitted:', { email, password });
+    } catch (error) {
+      setError(error.message || "Something went wrong.");
+    }finally{
+      setLoading(false);
+    }
   };
 
   return (
@@ -98,21 +114,27 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <input
+                <div className='flex items-center'>
+                  <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text": "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 placeholder-gray-500"
                   placeholder="••••••••"
                 />
+                <button onClick={handleToggle}>
+                  {showPassword ? <Eye/> : <EyeOff/>}
+                </button>
+                </div>
               </div>
+              {error && <p>{error}</p>}
               <button
                 type="submit"
                 className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-md"
               >
-                Sign In
+                {loading ? "Signing in..." : "Sign In"}
               </button>
             </form>
             <p className="mt-5 text-sm text-gray-600 text-center">

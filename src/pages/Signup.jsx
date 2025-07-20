@@ -1,46 +1,63 @@
+import { Eye, EyeOff } from 'lucide-react';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = () => {
   const [full_name, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [status, setStatus] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword,setShowPassword] = useState(false)
+
   const navigate = useNavigate();
 
-
-  const handleSubmit = async(e) => {
+  const handleToggle = (e) => {
     e.preventDefault();
-    const data ={full_name, email, password};
+    setShowPassword(prev => !prev)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    const data = { full_name, email, password };
+
     try {
-     const response = await fetch('http://localhost:3000/user/signup',{
-        method: "POST",
-        headers:{
-          "Content-Type": 'application/json',
+      const response = await fetch('http://localhost:3000/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
-      })
+      });
+
       const result = await response.json();
-      console.log("SignUp Result: ", result);
-      if(response.ok){
-          setStatus('Successfully registered! Please login.');
-          navigate('/login'); 
-      }else{
-        setStatus('Failed registeration! Please login.');
-      } 
+
+      if (response.ok) {
+        setFullName('');
+        setEmail('');
+        setPassword('');
+        navigate('/login');
+      } else {
+        setError(result.message || 'Signup failed');
+      }
     } catch (error) {
-      console.log("SignUp Error: ",error.message);
-      throw error;
+      console.error('Signup Error:', error.message);
+      setError(error.message || 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
-  }
-  
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-green-50 relative overflow-hidden">
-      {/* Chalkboard Background Texture */}
+      {/* Background Texture */}
       <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/blackboard.png')] opacity-15 animate-subtle-drift"></div>
-      
+
       <div className="w-fit md:w-full md:max-w-4xl flex flex-col lg:flex-row bg-transparent rounded-3xl shadow-2xl overflow-hidden mx-4 sm:mx-6 lg:mx-0">
-        {/* Left Section - Logo (Hidden below lg) */}
+        {/* Left Logo Section */}
         <div className="hidden lg:flex bg-gradient-to-br from-green-700 to-teal-600 items-center justify-center p-10 relative">
           <div className="text-center z-10">
             <h1 className="text-5xl font-extrabold text-white font-handwritten tracking-wide animate-draw">
@@ -65,20 +82,17 @@ const Signup = () => {
           </div>
         </div>
 
-        {/* Right Section - Form */}
+        {/* Signup Form Section */}
         <div className="w-full lg:w-1/2 p-6 sm:p-8 lg:p-10">
           <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg max-w-md mx-auto border border-green-200 relative">
-            {/* Decorative Element */}
             <div className="absolute -top-3 -right-3 w-8 h-8 bg-green-500 rounded-full animate-bounce-slow"></div>
             <h2 className="text-2xl sm:text-3xl font-bold text-green-800 mb-6 text-center font-handwritten tracking-wide">
               Join the Feast
             </h2>
+
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="relative">
-                <label
-                  htmlFor="fullName"
-                  className="block text-sm font-medium text-green-700 transform transition-all duration-300 group-hover:-translate-y-1"
-                >
+              <div>
+                <label htmlFor="fullName" className="block text-sm font-medium text-green-700">
                   Full Name
                 </label>
                 <input
@@ -87,15 +101,13 @@ const Signup = () => {
                   value={full_name}
                   onChange={(e) => setFullName(e.target.value)}
                   required
-                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 placeholder-gray-500"
+                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-500"
                   placeholder="Your Full Name"
                 />
               </div>
-              <div className="relative">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium text-green-700 transform transition-all duration-300 group-hover:-translate-y-1"
-                >
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-green-700">
                   Email
                 </label>
                 <input
@@ -104,43 +116,54 @@ const Signup = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 placeholder-gray-500"
+                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-500"
                   placeholder="your.email@recipehaven.com"
                 />
               </div>
-              <div className="relative">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium text-green-700 transform transition-all duration-300 group-hover:-translate-y-1"
-                >
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-green-700">
                   Password
                 </label>
-                <input
+                <div className='flex items-center'>
+                  <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text":"password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 placeholder-gray-500"
+                  className="mt-1 w-full p-3 bg-green-50 border-l-4 border-green-400 rounded-r-lg text-gray-800 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder-gray-500"
                   placeholder="••••••••"
                 />
+                <button onClick={handleToggle}>
+                  {showPassword ? <Eye/> : <EyeOff/>}
+                </button>
+                </div>
               </div>
+
+              {error && (
+                <p className="text-red-600 text-sm text-center font-medium mt-2">
+                  {error}
+                </p>
+              )}
+
               <button
                 type="submit"
-                className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-md"
+                disabled={loading}
+                className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-md disabled:opacity-60"
               >
-                Sign Up
+                {loading ? 'Signing Up...' : 'Sign Up'}
               </button>
             </form>
-            {status && <p>{status}</p>}
+
             <p className="mt-5 text-sm text-gray-600 text-center">
               Already have an account?{' '}
-              <a
-                href="/login"
+              <Link
+                to="/login"
                 className="text-green-600 font-semibold hover:underline"
               >
                 Sign In
-              </a>
+              </Link>
             </p>
           </div>
         </div>

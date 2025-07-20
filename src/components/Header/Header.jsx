@@ -63,7 +63,7 @@ function Header() {
         </h1>
 
         {/* Desktop Menu */}
-        <ul className="hidden sm:flex space-x-10">
+        <ul className="hidden sm:flex space-x-10 items-center">
           {navLinks.map((item) => (
             item.status ? (
               <li key={item.path}>
@@ -98,9 +98,9 @@ function Header() {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="sm:hidden bg-white mt-4 mx-4 rounded-md shadow-lg">
-          <ul className="flex flex-col space-y-3 py-4 px-6">
+          <ul className="flex flex-row space-x-6 py-4 px-6 items-center justify-center">
             {navLinks.map((item) => (
-              item.showWhenAuthenticated === authStatus ? (
+              item.status ? (
                 <li key={item.path}>
                   <Link
                     to={item.path}
