@@ -39,11 +39,11 @@ function All() {
 
   return (
     <div className="min-h-screen p-4 sm:p-6 lg:p-8 bg-gradient-to-tr from-white via-gray-50 to-white text-gray-900">
-      {error && (
+      {/* {error && (
         <div className="text-red-600 font-medium text-center bg-red-100/80 backdrop-blur-sm p-3 rounded-lg shadow-md mb-6">
           {error}
         </div>
-      )}
+      )} */}
 
       {loading ? (
         <div className="text-center mt-20 text-lg text-gray-500 animate-pulse">Loading recipes...</div>
@@ -68,6 +68,7 @@ function All() {
                 <div className="mt-4 flex flex-col sm:flex-row justify-between items-center gap-2">
                   <Link
                     to="/view"
+                    state={{recipe}}
                     className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-medium rounded-full bg-gradient-to-r from-blue-500 to-teal-500 text-white hover:from-blue-600 hover:to-teal-600 transition"
                   >
                     <Link2 size={16} className="mr-2" /> View More

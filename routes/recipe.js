@@ -80,24 +80,26 @@ recipeRouter.put('/edit/:recipeId',AuthMiddleware,async(req,res) => {
 });
 
 //Delete a recipe:
-recipeRouter.delete('/delete/:recipeId',AuthMiddleware,async(req,res) => {
-    const userId = req.userId;
-    const recipeId = req.params.recipeId;
-    try {
-         const recipe = await Recipe.findById(recipeId);
+recipeRouter.delete('/delete/:recipeId', AuthMiddleware, async (req, res) => {
+  const userId = req.userId;
+  const recipeId = req.params.recipeId;
 
-            if(!recipe || recipe.createdBy.toString() !== userId){
-                return res.status(403).json({error: "You are not authorized to delete this recipe"
-            });
-            }
-        await Recipe.findByIdAndDelete(recipeId)
-        return res.status(200).json({message: "Recipe deleted successfully"});
+  try {
+    const recipe = await Recipe.findById(recipeId);
 
-    } catch (error) {
-        console.log("Delete Recipe Error: ",error.message);
-        res.status(500).json({error: "Internal Server Error"});
+    if (!recipe || recipe.createdBy.toString() !== userId) {
+      return res.status(403).json({ error: "You are not authorized to delete this recipe" });
     }
+
+    await Recipe.findByIdAndDelete(recipeId);
+    return res.status(200).json({ message: "Recipe deleted successfully" });
+
+  } catch (error) {
+    console.log("Delete Recipe Error:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 
 export default recipeRouter;
 

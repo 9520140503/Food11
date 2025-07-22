@@ -11,6 +11,7 @@ import AuthLayout from "./components/AuthLayout"
 import Signup from './pages/Signup.jsx'
 import New from './pages/New.jsx'
 import All from './pages/All.jsx'
+import View from './pages/View.jsx'
 
 
 const router = createBrowserRouter([
@@ -43,7 +44,14 @@ const router = createBrowserRouter([
       element: <AuthLayout authentication = {true}>
         <All/>
       </AuthLayout>
-    }]
+    },
+    {
+      path: '/view',
+      element: <AuthLayout authentication= {true}>
+        <View/>
+      </AuthLayout>
+    }
+  ]
 }
 ])
 
