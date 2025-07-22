@@ -6,12 +6,12 @@ import Recipe from "../models/recipeModel.js"
 const recipeRouter = Router();
 
 //create a new recipe
-recipeRouter.post('/add/',AuthMiddleware,async(req,res) => {
-    const {image,title,description,ingredients,instructions} = req.body;
+recipeRouter.post('/add',AuthMiddleware,async(req,res) => {
+    const {imageUrl,title,description,ingredients,instructions} = req.body;
     const Id = req.userId;
     try {
         const recipe = await Recipe.create({
-            image,
+            image: imageUrl,
             createdBy: Id,
             title,
             description,

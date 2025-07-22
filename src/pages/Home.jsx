@@ -21,7 +21,7 @@ const Home = () => {
   ];
 
   const chefs = [
-    { name: 'Chef Simran', dish: 'Paneer Tikka', bio: 'Simran shares Punjab’s tandoori secrets.', image: 'https://assets.grok.com/users/6bd202e1-b6d2-4da6-85c5-4a3976cb240b/generated/8876e999-685f-47c6-b26d-84eb2cd5b45e/image.jpg' },
+    { name: 'Chef Simran', dish: 'Paneer Tikka', bio: 'Simran shares Punjab’s tandoori secrets.', image: 'https://assets.grok.com/users/6bd202e1-b6d2-4da6-85c5-4a3976cb240b/generated/7d5f8c6c-300d-4bde-b18c-5b41c8476969/image.jpg' },
     { name: 'Chef Arjun', dish: 'Aloo Paratha', bio: 'Arjun brings Delhi’s street food to life.', image: 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg' },
   ];
 

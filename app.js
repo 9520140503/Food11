@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./routes/user.js";
+import recipeRouter from "./routes/recipe.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/',(req,res) => {
 });
 
 app.use('/user',userRouter);
+app.use('/recipe',recipeRouter)
 
 app.listen(3000,() => (
     console.log("Server running at port 3000")
