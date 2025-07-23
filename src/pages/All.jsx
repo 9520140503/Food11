@@ -48,7 +48,7 @@ function All() {
       {loading ? (
         <div className="text-center mt-20 text-lg text-gray-500 animate-pulse">Loading recipes...</div>
       ) : data.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-2 max-w-7xl mx-auto">
           {data.map((recipe, index) => (
             <div
               key={index}

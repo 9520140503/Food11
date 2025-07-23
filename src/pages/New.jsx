@@ -115,9 +115,9 @@ function New() {
                 <textarea
                   id="ingredients"
                   name="ingredients"
-                  value={ingredients.join(', ')}
-                  onChange={(e) => setIngredients(e.target.value.split(',').map((i) => i.trim()))}
-                  placeholder="Enter ingredients seprate with commas ( , )"
+                  value={ingredients.join('\n')}
+                  onChange={(e) => setIngredients(e.target.value.split('\n').map((i) => i.trim()))}
+                  placeholder="Enter ingredients separate with ( \n )"
                   required
                   className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px] transition duration-200"
                 />
@@ -130,9 +130,9 @@ function New() {
                 <textarea
                   id="instructions"
                   name="instructions"
-                  value={instructions.join(', ')}
-                  onChange={(e) => setInstructions(e.target.value.split(',').map((i) => i.trim()))}
-                  placeholder="Enter instructions seprate with commas ( , )"
+                  value={instructions.join('\n ')}
+                  onChange={(e) => setInstructions(e.target.value.split('\n').map((i) => i.trim()))}
+                  placeholder="Enter instructions separate with ( \n )"
                   required
                   className="mt-1 w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[150px] transition duration-200"
                 />

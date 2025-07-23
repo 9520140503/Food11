@@ -49,7 +49,7 @@ recipeRouter.get('/',AuthMiddleware, async(req,res) => {
 //Udpate a recipe:
 recipeRouter.put('/edit/:recipeId',AuthMiddleware,async(req,res) => {
     const userId = req.userId;
-    const {image,title,description,ingredients,instructions} = req.body;
+    const {image,description,ingredients,instructions} = req.body;
     const recipeId = req.params.recipeId;
 
     try {
@@ -64,7 +64,6 @@ recipeRouter.put('/edit/:recipeId',AuthMiddleware,async(req,res) => {
         }
 
         recipe.image = image;
-        recipe.title = title;
         recipe.description = description;
         recipe.ingredients = ingredients;
         recipe.instructions = instructions;

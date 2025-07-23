@@ -1,7 +1,8 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,Link } from 'react-router-dom';
 import { FaEdit, FaTrash, FaBook, FaListUl, FaUtensils } from 'react-icons/fa';
 import { Calendar, Utensils, User } from 'lucide-react';
+
 
 function View() {
   const { state } = useLocation();
@@ -18,10 +19,6 @@ function View() {
       </div>
     );
   }
-
-  const handleEdit = () => {
-    navigate('/edit', { state: { recipe } });
-  };
 
   const handleDelete = async() => {
    try {
@@ -103,12 +100,13 @@ function View() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={handleEdit}
+              <Link
+                to="/edit"
+                state={{recipe}}
                 className="flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-md"
               >
                 <FaEdit className="mr-2" /> Edit Recipe
-              </button>
+              </Link>
               <button
                 onClick={handleDelete}
                 className="flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105 shadow-md"
