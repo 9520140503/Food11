@@ -19,7 +19,7 @@ function Header() {
       status: !authStatus,
     },
     {
-      name: 'Register',
+      name: 'Get Started',
       path: '/signup',
       status: !authStatus,
     },

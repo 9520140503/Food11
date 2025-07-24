@@ -24,7 +24,7 @@ const RecipeForm = () => {
   console.log('Form Data:', formData);
 
   try {
-    const response = await fetch(`http://localhost:3000/recipe/edit/${recipe._id}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/recipe/edit/${recipe._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -23,7 +23,7 @@ function View() {
   const handleDelete = async() => {
    try {
      if (window.confirm('Are you sure you want to delete this recipe?')) {
-      await fetch(`http://localhost:3000/recipe/delete/${recipe._id}`,{
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/recipe/delete/${recipe._id}`,{
         method:"DELETE",
         headers: {
             "Content-Type": "application/json",

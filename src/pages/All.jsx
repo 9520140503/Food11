@@ -2,6 +2,7 @@ import { Link2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+
 function All() {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
@@ -12,7 +13,7 @@ function All() {
 
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('http://localhost:3000/recipe/', {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/recipe/`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import {logout} from "../../store/authSlice"
 import { useDispatch } from 'react-redux';
-import { WindIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
 
 function Logout() {
   const navigate = useNavigate();
@@ -13,7 +11,7 @@ function Logout() {
     try{
       setLoading(true);
       localStorage.removeItem('token');
-      await fetch('http://localhost:3000/user/logout',{
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/logout`,{
         method: "POST",
         headers:{
           "Content-Type": "application/json"
@@ -25,7 +23,7 @@ function Logout() {
     }catch(error){
       console.error("Logout Error: ", error.message);
     }finally{
-      setLoadiing(false);
+      setLoading(false);
     }
   }
   return (

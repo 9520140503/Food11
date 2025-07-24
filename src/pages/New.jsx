@@ -2,6 +2,7 @@
 import { Utensils, Image, FileText, List, ListOrdered } from 'lucide-react';
 import React, { useState } from 'react';
 
+
 function New() {
   const [title, setTitle] = useState('');
   const [imageUrl, setImageUrl] = useState('');
@@ -28,7 +29,7 @@ function New() {
       return;
     }
 
-      const response = await fetch('http://localhost:3000/recipe/add', {
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/recipe/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

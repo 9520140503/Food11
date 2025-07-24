@@ -4,6 +4,7 @@ import {login} from "../store/authSlice"
 import { useDispatch } from 'react-redux';
 import { Eye, EyeOff } from 'lucide-react';
 
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +13,7 @@ const Login = () => {
   const [error,setError] = useState('')
   const [loading,setLoading] = useState(false)
   const [showPassword,setShowPassword] = useState(false)
+
 
   const handleToggle = (e) => {
    e.preventDefault()
@@ -25,7 +27,7 @@ const Login = () => {
     }
     try {
       setLoading(true)
-      const response = await fetch('http://localhost:3000/user/login',{
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/login`,{
       method: "POST",
       headers:{
         "Content-Type": "application/json"
